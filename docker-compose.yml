@@ -1,18 +1,18 @@
-services:
-  vue-app:
-    image: node:20-alpine
-    container_name: wizytowka-vue
-    working_dir: /app
-    volumes:
-      - .:/app
-    network_mode: host
-    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
-    restart: unless-stopped
+version: "3.8"
 
-  cf-tunnel:
-    image: cloudflare/cloudflared:latest
-    container_name: wizytowka-tunnel
-    network_mode: host
-    # Dodajemy flagę podmieniającą nagłówek na localhost:
-    command: tunnel --url http://localhost:5173 --http-host-header=localhost
-    restart: unless-stopped
+networks:
+  proxy-network:
+    external: true
+
+services:
+  frontend:
+    build: .
+    container_name: infinityops-vue
+    restart: always
+    networks:
+      - proxy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vue.rule=Host(`infinityops.net`)"
+      - "traefik.http.services.vue.loadbalancer.server.port=80"
+

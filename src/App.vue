@@ -5,7 +5,7 @@
         <div class="profile-header">
           <div class="avatar-text">IO</div>
           <h1 class="brand-name">infinity<span>ops</span></h1>
-          <p class="lead-role">Linux Systems & Network Engineer</p>
+          <p class="lead-role">Senior DevOps Engineer</p>
         </div>
         
         <nav class="sidebar-nav">
@@ -17,11 +17,11 @@
 
         <div class="sidebar-footer">
           <div class="social-links">
-            <a href="https://github.com" target="_blank">GH</a>
-            <a href="https://linkedin.com" target="_blank">LI</a>
-            <a href="mailto:kontakt@twojadomena.pl">EM</a>
+            <a href="https://github.com/rafmat24" target="_blank">GH</a>
+            <a href="https://www.linkedin.com/in/rafal-matuszak" target="_blank">LI</a>
+            <a href="mailto:rafal.matuszak92@gmail.com">EM</a>
           </div>
-          <p class="geo-tag">// opg / gdańsk / zdalnie</p>
+          <p class="geo-tag">// devops / gdańsk / zdalnie</p>
         </div>
       </div>
     </aside>
@@ -87,7 +87,7 @@
 
       <section id="contact" class="content-section">
         <span class="section-index">04 //</span>
-        <h2>Rejestr & Kontakt</h2>
+        <h2>Kontakt</h2>
         <div class="meta-box">
           <div class="meta-row">
             <span class="label">Podmiot:</span>

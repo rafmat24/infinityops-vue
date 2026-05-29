@@ -1,0 +1,21 @@
+
+services:
+  vue-dev:
+    image: node:lts-alpine
+    container_name: vue-dev-env
+    volumes:
+      - /opt/infinityops:/app
+      - /app/node_modules
+    working_dir: /app
+    networks:
+      - proxy-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vue-dev.rule=Host(`infinityops.net`)"
+      - "traefik.http.routers.vue-dev.entrypoints=web"
+      - "traefik.http.services.vue-dev.loadbalancer.server.port=5173"
+    command: sh -c "npm install && npm run dev -- --host"
+
+networks:
+  proxy-network:
+    external: true

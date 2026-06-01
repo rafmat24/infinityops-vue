@@ -4,15 +4,19 @@
       <div class="sidebar-content">
         <div class="profile-header">
           <div class="avatar-text">IO</div>
-          <h1 class="brand-name">infinity<span>ops</span></h1>
-          <p class="lead-role">Senior DevOps Engineer</p>
+          <a href="#" class="brand-name" @click.prevent="goHome">infinity<span>ops</span></a>
+          <p class="lead-role">{{ t('sidebar.role') }}</p>
+          <div class="lang-switch">
+            <button :class="{active: state.locale === 'en'}" @click="setLocale('en')">EN</button>
+            <button :class="{active: state.locale === 'pl'}" @click="setLocale('pl')">PL</button>
+          </div>
         </div>
-        
+
         <nav class="sidebar-nav">
-          <a href="#about"><span>01</span> O mnie</a>
-          <a href="#stack"><span>02</span> Ekspertyza</a>
-          <a href="#services"><span>03</span> Usługi</a>
-          <a href="#contact"><span>04</span> Kontakt</a>
+          <a href="#about" @click.prevent="setSection('about')"><span>01</span> {{ t('nav.about') }}</a>
+          <a href="#stack" @click.prevent="setSection('stack')"><span>02</span> {{ t('nav.stack') }}</a>
+          <a href="#services" @click.prevent="setSection('services')"><span>03</span> {{ t('nav.resume') }}</a>
+          <a href="#contact" @click.prevent="setSection('contact')"><span>04</span> {{ t('nav.contact') }}</a>
         </nav>
 
         <div class="sidebar-footer">
@@ -27,93 +31,104 @@
     </aside>
 
     <main class="main-content">
-      <section id="about" class="content-section">
+      <div class="hero">
+        <h1 class="hero-greeting">{{ t('hero.greeting') }}</h1>
+        <p class="hero-tagline">{{ t('hero.tagline') }}</p>
+      </div>
+
+      <section v-if="selectedSection === 'about'" id="about" class="content-section">
         <span class="section-index">01 //</span>
-        <h2>O projekcie</h2>
-        <p class="large-text">
-          Buduję i utrzymuję niezawodną infrastrukturę IT. Specjalizuję się w automatyzacji systemów Linux, konteneryzacji w środowiskach self-hosted oraz inżynierii sieciowej. Omijam korporacyjny overhead na rzecz czystej, wydajnej architektury.
-        </p>
+        <h2>{{ t('about.title') }}</h2>
+        <p class="large-text">{{ t('about.paragraph') }}</p>
       </section>
 
-      <section id="stack" class="content-section">
+      <section v-if="selectedSection === 'stack'" id="stack" class="content-section">
         <span class="section-index">02 //</span>
-        <h2>Core Stack</h2>
+        <h2>{{ t('stack.title') }}</h2>
         <div class="tech-grid">
           <div class="tech-category">
-            <h3>Systems & Virt</h3>
+            <h3>{{ t('stack.systems.title') }}</h3>
             <ul>
-              <li>Linux (various distros)</li>
-              <li>Virtualization</li>
-              <li>Docker & Kubernetes</li>
-              <li>Windows managements (including domain controllers and services)</li>
-              <li>Powereshell scripting</li>
+              <li v-for="item in t('stack.systems.items')" :key="item">{{ item }}</li>
             </ul>
           </div>
           <div class="tech-category">
-            <h3>DevOps</h3>
+            <h3>{{ t('stack.devops.title') }}</h3>
             <ul>
-              <li>Pipeline design & implementation </li>
-              <li>Docker & Kubernetes</li>
-              <li>Artifactory></li>
-              <li>Vulnerabilities scan</li>
-              <li>Support for project building process (.NET, Java, Python, Go)</li>
+              <li v-for="item in t('stack.devops.items')" :key="item">{{ item }}</li>
             </ul>
           </div>
           <div class="tech-category">
-            <h3>Training & education</h3>
+            <h3>{{ t('stack.training.title') }}</h3>
             <ul>
-              <li>Providing internal trainings</li>
-              <li>Sharing knowledge on daily basis</li>
-              <li>Eager to explore new technical areas</li>
+              <li v-for="item in t('stack.training.items')" :key="item">{{ item }}</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <section id="services" class="content-section">
+      <section v-if="selectedSection === 'services'" id="services" class="content-section">
         <span class="section-index">03 //</span>
-        <h2>Zakres działań</h2>
+        <h2>{{ t('resume.title') }}</h2>
         <div class="services-list">
-          <div class="service-item">
-            <h4>Zarządzanie Infrastrukturą</h4>
-            <p>Konfiguracja, hardening i monitoring hostów Linux oraz środowisk wirtualizacji bare-metal.</p>
-          </div>
-          <div class="service-item">
-            <h4>Projektowanie Sieci Lokalnych</h4>
-            <p>Segmentacja ruchu (VLAN), bezpieczny routing, wdrażanie lokalnych filtrów DNS oraz bezpiecznych tuneli VPN.</p>
+          <div class="service-item" v-for="s in t('resume.items')" :key="s.title">
+            <h4>{{ s.title }}</h4>
+            <p>{{ s.description }}</p>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="content-section">
+      <section v-if="selectedSection === 'contact'" id="contact" class="content-section">
         <span class="section-index">04 //</span>
-        <h2>Kontakt</h2>
+        <h2>{{ t('contact.title') }}</h2>
         <div class="meta-box">
           <div class="meta-row">
-            <span class="label">Podmiot:</span>
-            <span class="value">InfinityOps / JDG</span>
+            <span class="label">{{ t('contact.entity') }}</span>
+            <span class="value">{{ t('contact.entityValue') }}</span>
           </div>
           <div class="meta-row">
-            <span class="label">NIP:</span>
+            <span class="label">{{ t('contact.tax') }}</span>
             <span class="value">6161538802</span>
           </div>
           <div class="meta-row">
-            <span class="label">Główny e-mail:</span>
-            <span class="value"><a href="mailto:rafal.matuszak92@gmail.com" class="inline-link">rafal.matuszak92@gmail.com</a></span>
+            <span class="label">{{ t('contact.emailLabel') }}</span>
+            <span class="value"><a :href="'mailto:' + t('contact.email')" class="inline-link">{{ t('contact.email') }}</a></span>
           </div>
           <div class="meta-row">
-            <span class="label">Telefon</span>
+            <span class="label">{{ t('contact.phoneLabel') }}</span>
             <span class="value">+48 736 845 400</span>
           </div>
         </div>
       </section>
 
       <footer class="site-footer">
-        <p>© 2026 infinityops. Wszelkie prawa zastrzeżone. Built with Vue/Vite.</p>
+        <p>{{ t('footer.copyright') }}</p>
       </footer>
     </main>
   </div>
 </template>
+
+<script setup>
+import { ref, nextTick } from 'vue'
+import { state, t, setLocale } from './i18n'
+
+const selectedSection = ref(null)
+
+function setSection(section) {
+  selectedSection.value = section
+  nextTick(() => {
+    const target = document.getElementById(section)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  })
+}
+
+function goHome() {
+  selectedSection.value = null
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+</script>
 
 <style>
 /* --- HALVEZ DESIGN SYSTEM --- */
@@ -152,11 +167,13 @@ body {
   justify-content: space-between;
 }
 
-.brand-name {
+.a.brand-name, .brand-name {
   font-size: 2.4rem;
   font-weight: 800;
   letter-spacing: -0.04em;
   color: #fff;
+  text-decoration: none;
+  cursor: pointer;
 }
 .brand-name span { color: var(--text-muted); font-weight: 300; }
 
@@ -233,9 +250,46 @@ body {
   flex: 1;
 }
 
+.hero {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 60px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
 .content-section {
   max-width: 680px;
-  margin-bottom: 100px;
+  margin: 0 auto 100px;
   position: relative;
 }
 
@@ -367,4 +421,19 @@ h2 {
     padding: 100px 100px 100px 80px;
   }
 }
+
+/* small UI additions */
+.lang-switch { margin-top: 12px; display:flex; gap:8px; }
+.lang-switch button {
+  background: transparent; border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text-muted); padding: 6px 8px; font-family: var(--font-mono);
+  cursor: pointer; border-radius: 4px; font-weight: 600;
+}
+.lang-switch button.active { color: var(--accent); border-color: var(--accent); }
+
+.hero { max-width: 720px; margin-bottom: 60px; }
+.hero-greeting { font-size: 2rem; margin-bottom: 10px; }
+.hero-tagline { color: var(--text-muted); margin-bottom: 18px; font-size: 1.1rem; }
+.hero-cta .btn { display: inline-block; margin-right: 12px; padding: 10px 14px; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; }
+.btn.ghost { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); padding: 9px 13px; }
 </style>

@@ -39,7 +39,7 @@
       <section v-if="selectedSection === 'about'" id="about" class="content-section">
         <span class="section-index">01 //</span>
         <h2>{{ t('about.title') }}</h2>
-        <p class="large-text">{{ t('about.paragraph') }}</p>
+        <p class="large-text" v-html="t('about.paragraph')"></p>
       </section>
 
       <section v-if="selectedSection === 'stack'" id="stack" class="content-section">
@@ -73,6 +73,7 @@
         <div class="services-list">
           <div class="service-item" v-for="s in t('resume.items')" :key="s.title">
             <h4>{{ s.title }}</h4>
+            <h5>{{ s.dates }}</h5><br>
             <p>{{ s.description }}</p>
           </div>
         </div>

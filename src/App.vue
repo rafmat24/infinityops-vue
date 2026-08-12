@@ -4,7 +4,9 @@
       <div class="sidebar-content">
         <div class="profile-header">
           <div class="avatar-text">IO</div>
-          <a href="#" class="brand-name" @click.prevent="goHome">infinity<span>ops</span></a>
+          <a href="#" class="brand-name" @click.prevent="goHome" aria-label="Infinity Ops home">
+            <img src="/infinity_ops.png" alt="Infinity Ops" class="brand-logo" />
+          </a>
           <p class="lead-role">{{ t('sidebar.role') }}</p>
           <div class="lang-switch">
             <button :class="{active: state.locale === 'en'}" @click="setLocale('en')">EN</button>
@@ -169,14 +171,23 @@ body {
 }
 
 .a.brand-name, .brand-name {
-  font-size: 2.4rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
   text-decoration: none;
   cursor: pointer;
 }
-.brand-name span { color: var(--text-muted); font-weight: 300; }
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
 
 .avatar-text {
   font-family: var(--font-mono);

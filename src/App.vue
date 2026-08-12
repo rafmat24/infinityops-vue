@@ -25,7 +25,7 @@
           <div class="social-links">
             <a href="https://github.com/rafmat24" target="_blank">GH</a>
             <a href="https://www.linkedin.com/in/rafal-matuszak" target="_blank">LI</a>
-            <a href="mailto:rafal.matuszak92@gmail.com">EM</a>
+            <a href="mailto:rmatuszak@infinityops.net">EM</a>
           </div>
           <p class="geo-tag">// devops / gdańsk / zdalnie</p>
         </div>

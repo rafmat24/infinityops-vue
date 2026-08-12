@@ -75,7 +75,7 @@ const messages = {
       entityValue: 'InfinityOps / JDG',
       tax: 'Tax ID:',
       emailLabel: 'Primary e-mail:',
-      email: 'rafal.matuszak92@gmail.com',
+      email: 'rmatuszak@infinityops.net',
       phoneLabel: 'Phone:'
     },
     footer: {
@@ -149,7 +149,7 @@ const messages = {
       entityValue: 'InfinityOps / JDG',
       tax: 'NIP:',
       emailLabel: 'Główny e-mail:',
-      email: 'rafal.matuszak92@gmail.com',
+      email: 'rmatuszak@infinityops.net',
       phoneLabel: 'Telefon:'
     },
     footer: {
